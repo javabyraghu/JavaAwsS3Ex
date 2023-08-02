@@ -10,6 +10,7 @@ import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.core.sync.ResponseTransformer;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
@@ -65,6 +66,16 @@ public class S3Example {
         for (S3Object object : listObjectsResponse.contents()) {
             System.out.println(" - " + object.key());
         }
+        
+        
+     // Delete an object from S3
+        s3Client.deleteObject(DeleteObjectRequest.builder()
+                .bucket(bucketName)
+                .key(key)
+                .build());
+
+        System.out.println("File deleted successfully.");
+
 
         // Don't forget to close the S3 client when you're done.
         s3Client.close();
